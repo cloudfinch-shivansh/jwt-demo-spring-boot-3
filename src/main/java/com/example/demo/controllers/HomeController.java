@@ -17,6 +17,11 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @GetMapping
+    public String printServerStatus() {
+        return "Server Started";
+    }
+
     @GetMapping("users")
     public List<User> getUsers() {
         return this.userService.getUsers();

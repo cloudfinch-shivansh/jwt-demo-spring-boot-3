@@ -35,14 +35,17 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home/**")
+                        .requestMatchers("/action/**")
                         .authenticated()
                         .requestMatchers("/auth/login")
                         .permitAll()
-                        .requestMatchers("/auth/create-user")
+                        .requestMatchers("/auth/register")
                         .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                        .requestMatchers("/")
+                        .permitAll())
+
+                // .anyRequest()
+                // .authenticated()
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

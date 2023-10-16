@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.User;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.repo.UserRepo;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,18 +14,18 @@ import java.util.UUID;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepo userRepo;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepo.findAll();
     }
 
     public User createUser(User user) {
-        user.setUserId(UUID.randomUUID().toString());
+        user.setId(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return userRepo.save(user);
     }
 }

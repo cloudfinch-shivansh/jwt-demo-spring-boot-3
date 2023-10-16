@@ -8,7 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -16,11 +21,11 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "user_table")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
-    private String userId;
+    private String id;
 
     private String name;
 
@@ -28,7 +33,9 @@ public class User implements UserDetails {
 
     private String password;
 
-    private String about;
+    private String role;
+
+    private String status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
