@@ -26,6 +26,7 @@ public class UserService {
     public User createUser(User user) {
         user.setId(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setStatus("ACTIVE");
         return userRepo.save(user);
     }
 }
