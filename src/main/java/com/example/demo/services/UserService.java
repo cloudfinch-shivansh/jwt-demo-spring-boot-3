@@ -1,24 +1,31 @@
 package com.example.demo.services;
 
-import com.example.demo.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import com.example.demo.entities.User;
+import com.example.demo.repositories.UserRepository;
+
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class UserService {
-    private List<User> store = new ArrayList<>();
 
-    public UserService() {
-        store.add(new User(UUID.randomUUID().toString(), "Dash", "dash@gmail.com"));
-        store.add(new User(UUID.randomUUID().toString(), "asd", "ash@gmail.com"));
-        store.add(new User(UUID.randomUUID().toString(), "sh", "sh@gmail.com"));
-        store.add(new User(UUID.randomUUID().toString(), "h", "h@gmail.com"));
-    }
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public List<User> getUsers() {
-        return store;
+        return userRepository.findAll();
+    }
+
+    public User createUser(User user) {
+        user.setUserId(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 }
